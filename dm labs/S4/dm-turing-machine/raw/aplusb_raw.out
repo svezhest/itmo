@@ -1,0 +1,23 @@
+start: sum_start
+accept: sum_ac
+reject: rj
+blank: _
+sum_start [0, 1, a, b, +] >
+sum_start _ -> sum_add_next_digit _ <
+sum_add_next_digit 0 -> sum_carry_0 _ <
+sum_add_next_digit 1 -> sum_carry_1 _ <
+sum_add_next_digit + -> sum_finish _ <
+sum_carry_0 [0, 1] <
+sum_carry_1 [0, 1] <
+sum_carry_0 + -> sum_carry_0_after_plus + <
+sum_carry_1 + -> sum_carry_1_after_plus + <
+sum_carry_0_after_plus [a, b] <
+sum_carry_0_after_plus [_, 0, 1] -> sum_start [a, a, b] >
+sum_carry_1_after_plus [a, b] <
+sum_carry_1_after_plus [_, 0] -> sum_start [b, b] >
+sum_carry_1_after_plus 1 -> sum_incr a <
+sum_incr [_, 0] -> sum_start [1, 1] >
+sum_incr 1 -> sum_incr 0 <
+sum_finish [0, 1] <
+sum_finish [a, b] -> sum_finish [0, 1] <
+sum_finish _ -> sum_ac _ >

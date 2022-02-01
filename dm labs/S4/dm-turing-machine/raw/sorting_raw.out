@@ -1,0 +1,44 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+3
+s | _ _ -> s _ > | > | >
+s 0 _ _ -> s _ > 0 > 0 >
+s 1 _ _ -> s _ > 1 > 1 >
+s _ _ _ -> check_zero_true _ ^ _ < _ <
+check_zero_true _ ^ [0, 1] < 0 <
+check_zero_true _ | | -> write_and_continue _ ^ | > | >
+check_zero_true _ _ _ -> write_and_decrement _ ^ _ > _ >
+write_and_continue _ 0 0 -> write_and_continue 0 > 0 > x >
+write_and_continue _ 1 0 -> write_and_continue 1 > 1 > x >
+write_and_continue _ [_, |] [_, |] -> checking_next_number | > [_, |] < [_, |] <
+write_and_decrement _ 0 0 -> write_and_decrement 0 > 0 > x >
+write_and_decrement _ 1 0 -> write_and_decrement 1 > 1 > x >
+write_and_decrement _ [_, |] [_, |] -> go_to_start_and_check_finished | > [_, |] < [_, |] <
+checking_next_number _ ^ [0, 1] < x <
+checking_next_number _ | | -> check_zero_true _ ^ | < | <
+check_zero_true _ [0, 1] [1, x] -> check_zero_false _ ^ [0, 1] < [1, x] <
+check_zero_false _ ^ [0, 1] < [0, 1, x] <
+check_zero_false _ | | -> check_zero_true _ ^ | < | <
+check_zero_false _ _ _ -> go_to_start_and_check_finished _ ^ _ > _ >
+go_to_start_and_check_finished _ ^ [|, 0, 1] < [|, x] <
+go_to_start_and_check_finished _ [0, 1] [0, 1] -> go_to_end_and_decrement _ ^ [0, 1] > [0, 1] >
+go_to_start_and_check_finished _ _ _ -> go_to_end_and_check_finished _ ^ _ > _ >
+go_to_end_and_check_finished _ ^ [|, 0, 1] > [|, x] >
+go_to_end_and_check_finished _ [0, 1] [0, 1] -> go_to_end_and_decrement _ ^ [0, 1] > [0, 1] >
+go_to_end_and_check_finished _ _ _ -> finish _ < _ ^ _ ^
+finish | _ _ -> finish_go_to_start _ < _ ^ _ ^
+finish_go_to_start [|, 0, 1] < _ ^ _ ^
+finish_go_to_start _ _ _ -> ac _ > _ ^ _ ^
+go_to_end_and_decrement _ ^ [|, 0, 1] > [|, 0, 1, x] >
+go_to_end_and_decrement _ _ _ -> decrement _ ^ _ < _ <
+decrement _ ^ [|, 0, 1] < [|, x] <
+decrement _ [0, 1] 0 -> decrement _ ^ [0, 1] < 1 <
+decrement _ [0, 1] 1 -> decrement_next _ ^ [0, 1] < 0 <
+decrement _ _ _ -> go_to_end_and_check_zeros _ ^ _ > _ >
+decrement_next _ ^ [0, 1] < [0, 1] <
+decrement_next _ | | -> decrement _ ^ | < | <
+decrement_next _ _ _ -> go_to_end_and_check_zeros _ ^ _ > _ >
+go_to_end_and_check_zeros _ ^ [|, 0, 1] > [|, 0, 1, x] >
+go_to_end_and_check_zeros _ _ _ -> check_zero_true _ ^ _ < _ <

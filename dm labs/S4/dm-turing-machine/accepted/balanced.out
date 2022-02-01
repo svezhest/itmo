@@ -1,0 +1,15 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s _ -> ac _ ^
+s x -> s _ >
+s ( -> go ( >
+go ( -> go ( >
+go x -> go x >
+go ) -> erased x <
+erased ( -> back x <
+erased x -> erased x <
+back ( -> back ( <
+back x -> back x <
+back _ -> s _ >

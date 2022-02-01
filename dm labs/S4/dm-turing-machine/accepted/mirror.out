@@ -1,0 +1,36 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s _ -> ac _ ^
+s 0 -> frstend 0 >
+s 1 -> frstend 1 >
+frstend _ -> read _ <
+frstend 0 -> frstend 0 >
+frstend 1 -> frstend 1 >
+read 0 -> writea a >
+read 1 -> writeb b >
+read a -> read a <
+read b -> read b <
+read _ -> repair _ >
+repair a -> repair 0 >
+repair b -> repair 1 >
+repair 0 -> bgn 0 <
+repair 1 -> bgn 1 <
+writea 0 -> writea 0 >
+writea 1 -> writea 1 >
+writea a -> writea a >
+writea b -> writea b >
+writea _ -> back 0 <
+writeb 0 -> writeb 0 >
+writeb 1 -> writeb 1 >
+writeb a -> writeb a >
+writeb b -> writeb b >
+writeb _ -> back 1 <
+back 0 -> back 0 <
+back 1 -> back 1 <
+back a -> read a <
+back b -> read b <
+bgn 0 -> bgn 0 <
+bgn 1 -> bgn 1 <
+bgn _ -> ac _ >

@@ -1,0 +1,179 @@
+start: descending_s
+accept: ac
+reject: rj
+blank: _
+descending_s 0 -> ac 0 ^
+descending_s 1 -> descending_put_asterisk 1 >
+descending_put_asterisk [0, 1] -> descending_put_asterisk [0, 1] >
+descending_put_asterisk _ -> descending_to_next_digit * <
+descending_to_next_digit [0, 1] -> descending_to_next_digit [0, 1] <
+descending_to_next_digit [_, *, a, b] -> descending_take_next_digit [_, *, a, b] >
+descending_take_next_digit * -> descending_repair * <
+descending_repair [a, b] -> descending_repair [0, 1] <
+descending_repair [_, *] -> descending_prepare_decrement [_, *] >
+descending_take_next_digit 0 -> descending_carry_0 a >
+descending_take_next_digit 1 -> descending_carry_1 b >
+descending_carry_0 [*, 0, 1] -> descending_carry_0 [*, 0, 1] >
+descending_carry_1 [*, 0, 1] -> descending_carry_1 [*, 0, 1] >
+descending_carry_0 _ -> descending_go_back 0 <
+descending_carry_1 _ -> descending_go_back 1 <
+descending_go_back [0, 1] -> descending_go_back [0, 1] <
+descending_go_back * -> descending_to_next_digit * <
+descending_prepare_decrement [*, 0, 1] -> descending_prepare_decrement [*, 0, 1] >
+descending_prepare_decrement _ -> descending_decrement _ <
+descending_decrement 0 -> descending_decrement 1 <
+descending_decrement 1 -> descending_prepare_check_zero 0 <
+descending_prepare_check_zero [0, 1] -> descending_prepare_check_zero [0, 1] <
+descending_prepare_check_zero * -> descending_check_zero * >
+descending_check_zero 0 -> descending_check_zero 0 >
+descending_check_zero 1 -> descending_prepare_check_zeros_at_beginning 1 <
+descending_check_zero _ -> descending_erase_zero_and_finish _ <
+descending_erase_zero_and_finish 0 -> descending_erase_zero_and_finish _ <
+descending_erase_zero_and_finish * -> descending_go_to_very_beginning _ <
+descending_go_to_very_beginning [*, 0, 1] -> descending_go_to_very_beginning [*, 0, 1] <
+descending_go_to_very_beginning _ -> descending_ac _ >
+descending_prepare_check_zeros_at_beginning [0, 1] -> descending_prepare_check_zeros_at_beginning [0, 1] <
+descending_prepare_check_zeros_at_beginning * -> descending_check_zeros_at_beginning * >
+descending_check_zeros_at_beginning 0 -> descending_clear_zeros_and_move _ >
+descending_check_zeros_at_beginning 1 -> descending_prepare_repeat 1 <
+descending_prepare_repeat [0, 1] -> descending_prepare_repeat [0, 1] <
+descending_prepare_repeat * -> descending_s * >
+descending_clear_zeros_and_move 0 -> descending_clear_zeros_and_move _ >
+descending_clear_zeros_and_move 1 -> descending_move_prepare_mark_end 1 >
+descending_move_prepare_mark_end [0, 1] -> descending_move_prepare_mark_end [0, 1] >
+descending_move_prepare_mark_end _ -> descending_move_mark_end _ <
+descending_move_mark_end [0, 1] -> descending_move_start [a, b] <
+descending_move_start [_, 0, 1] -> descending_move_start [_, 0, 1] <
+descending_move_start * -> descending_move_take_next * >
+descending_move_take_next _ -> descending_move_take_next _ >
+descending_move_take_next 0 -> descending_move_carry_0 _ <
+descending_move_take_next 1 -> descending_move_carry_1 _ <
+descending_move_take_next a -> descending_move_carry_a _ <
+descending_move_take_next b -> descending_move_carry_b _ <
+descending_move_carry_0 _ -> descending_move_carry_0 _ <
+descending_move_carry_0 [*, 0, 1] -> descending_move_put_0 [*, 0, 1] >
+descending_move_put_0 _ -> descending_move_take_next 0 >
+descending_move_carry_1 _ -> descending_move_carry_1 _ <
+descending_move_carry_1 [*, 0, 1] -> descending_move_put_1 [*, 0, 1] >
+descending_move_put_1 _ -> descending_move_take_next 1 >
+descending_move_carry_a _ -> descending_move_carry_a _ <
+descending_move_carry_a [*, 0, 1] -> descending_move_put_a [*, 0, 1] >
+descending_move_put_a _ -> descending_prepare_repeat 0 <
+descending_move_carry_b _ -> descending_move_carry_b _ <
+descending_move_carry_b [*, 0, 1] -> descending_move_put_b [*, 0, 1] >
+descending_move_put_b _ -> descending_prepare_repeat 1 <
+descending_ac [0, 1] -> check_if_need_mul [0, 1] ^
+mul_s 0 -> erase_all _ >
+erase_all [*, 0, 1] -> erase_all _ >
+erase_all _ -> ac 0 ^
+mul_s 1 -> put_equals_and_zero 1 <
+put_equals_and_zero _ -> put_zero = <
+put_zero _ -> skip_to_b_first_digit 0 >
+skip_to_b_first_digit [=, 0, 1] >
+skip_to_b_first_digit * -> b_first_digit * >
+b_first_digit 0 -> erase_all_back _ <
+erase_all_back [*, =, 0, 1] -> erase_all_back _ <
+erase_all_back _ -> ac 0 ^
+b_first_digit 1 -> prepare_copy_a x <
+prepare_copy_a [*, x, 0, 1] <
+prepare_copy_a = -> put_plus = <
+put_plus [0, 1] <
+put_plus _ -> start_copy_a + >
+start_copy_a [=, 0, 1] >
+start_copy_a * -> copy_a * <
+copy_a 0 -> carry_0 a <
+copy_a 1 -> carry_1 b <
+copy_a = -> sum_prepare = <
+carry_0 [+, =, 0, 1] <
+carry_1 [+, =, 0, 1] <
+carry_0 _ -> take_next_digit 0 >
+carry_1 _ -> take_next_digit 1 >
+take_next_digit [+, =, 0, 1] >
+take_next_digit [a, b] -> copy_a [a, b] <
+sum_prepare [+, 0, 1] <
+sum_prepare _ -> sum_start _ >
+sum_start [0, 1, a, b, +] >
+sum_start [_, =] -> sum_add_next_digit [_, =] <
+sum_add_next_digit 0 -> sum_carry_0 _ <
+sum_add_next_digit 1 -> sum_carry_1 _ <
+sum_add_next_digit + -> sum_finish _ <
+sum_carry_0 [0, 1] <
+sum_carry_1 [0, 1] <
+sum_carry_0 + -> sum_carry_0_after_plus + <
+sum_carry_1 + -> sum_carry_1_after_plus + <
+sum_carry_0_after_plus [a, b] <
+sum_carry_0_after_plus [_, 0, 1] -> sum_start [a, a, b] >
+sum_carry_1_after_plus [a, b] <
+sum_carry_1_after_plus [_, 0] -> sum_start [b, b] >
+sum_carry_1_after_plus 1 -> sum_incr a <
+sum_incr [_, 0] -> sum_start [1, 1] >
+sum_incr 1 -> sum_incr 0 <
+sum_finish [0, 1] <
+sum_finish [a, b] -> sum_finish [0, 1] <
+sum_finish _ -> move_prepare _ >
+move_prepare 1 -> move_start b >
+move_start [0, 1] >
+move_start _ -> move_take_next_digit _ <
+move_take_next_digit _ <
+move_take_next_digit 0 -> move_carry_0 _ >
+move_take_next_digit 1 -> move_carry_1 _ >
+move_take_next_digit b -> move_carry_last_1 _ >
+move_carry_0 _ >
+move_carry_1 _ >
+move_carry_last_1 _ >
+move_carry_0 [=, 0, 1] -> move_put_0 [=, 0, 1] <
+move_carry_1 [=, 0, 1] -> move_put_1 [=, 0, 1] <
+move_carry_last_1 [=, 0, 1] -> move_put_last_1 [=, 0, 1] <
+move_put_0 _ -> move_take_next_digit 0 <
+move_put_1 _ -> move_take_next_digit 1 <
+move_put_last_1 _ -> b_next_digit 1 >
+b_next_digit [*, =, 0, 1] >
+b_next_digit [a, b] -> b_next_digit [0, 1] >
+b_next_digit x -> b_take_next_digit x >
+b_take_next_digit x >
+b_take_next_digit _ -> finish _ <
+b_take_next_digit * -> prepare_repeat * <
+finish [*, 0, 1, x] -> finish _ <
+finish = -> to_res_beginning _ <
+to_res_beginning [0, 1] <
+to_res_beginning _ -> ac _ >
+b_take_next_digit [0, 1] -> prepare_double_res [x, b] <
+b_take_next_digit b -> prepare_copy_a x <
+prepare_double_res [*, 0, 1, x] <
+prepare_double_res = -> start_double_res = <
+start_double_res [0, 1] <
+start_double_res _ -> double_res _ >
+double_res 0 -> double_carry_0 _ <
+double_res 1 -> double_carry_1 _ <
+double_res _ >
+double_res = -> double_put_0 = <
+double_put_0 _ -> b_next_digit 0 >
+double_carry_0 _ -> double_res 0 >
+double_carry_1 _ -> double_res 1 >
+prepare_repeat [*, 0, 1, a, b, x] -> prepare_repeat _ <
+prepare_repeat = -> last_move _ <
+last_move [0, 1] <
+last_move _ -> end_move_state _ >
+end_move_state 1 -> take_dig_move b >
+take_dig_move [0, 1] >
+take_dig_move _ -> actually_take _ <
+actually_take _ <
+actually_take 0 -> last_move_carry_0 _ >
+actually_take 1 -> last_move_carry_1 _ >
+actually_take b -> last_move_carry_last _ >
+last_move_carry_0 _ >
+last_move_carry_1 _ >
+last_move_carry_last _ >
+last_move_carry_0 [*, 0, 1] -> last_move_put_0 [*, 0, 1] <
+last_move_carry_1 [*, 0, 1] -> last_move_put_1 [*, 0, 1] <
+last_move_carry_last [*, 0, 1] -> last_move_put_last [*, 0, 1] <
+last_move_put_0 _ -> actually_take 0 <
+last_move_put_1 _ -> actually_take 1 <
+last_move_put_last _ -> check_if_need_mul 1 >
+check_if_need_mul [0, 1] >
+check_if_need_mul * -> answer_is_yes * <
+check_if_need_mul _ -> answer_is_no _ <
+answer_is_no [0, 1] <
+answer_is_no _ -> ac _ >
+answer_is_yes [0, 1] <
+answer_is_yes _ -> mul_s _ >

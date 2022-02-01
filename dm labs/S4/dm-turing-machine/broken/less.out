@@ -1,0 +1,26 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s 0 -> maybe_0 0 >
+s 1 -> first 1 >
+maybe_0 < -> check_not_0 < >
+maybe_0 0 -> maybe_0 0 >
+maybe_0 1 -> first 1 >
+first < -> second < >
+first 0 -> first 0 >
+first 1 -> first 1 >
+check_not_0 _ -> rj _ ^
+check_not_0 0 -> check_not_0 0 >
+check_not_0 1 -> ac 1 ^
+second 0 -> second 0 >
+second 1 -> second 1 >
+second _ -> decrement _ <
+decrement 0 -> decrement 1 <
+decrement 1 -> back 0 <
+decrement < -> rj < ^
+decrement _ -> s _ >
+back 0 -> back 0 <
+back 1 -> back 1 <
+back < -> decrement < <
+back _ -> s _ >

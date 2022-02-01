@@ -1,0 +1,160 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s _ -> ac _ ^
+s 0 -> erase_all _ >
+erase_all [*, 0, 1] -> erase_all _ >
+erase_all _ -> ac 0 ^
+s 1 -> s_0_to_a 1 >
+s_0_to_a 1 >
+s_0_to_a 0 -> s_0_to_a a >
+s_0_to_a * -> check_second_0 * >
+check_second_0 0 >
+check_second_0 1 -> add_plus_to_end 1 >
+check_second_0 _ -> erase_all_back _ <
+erase_all_back [*, 0, 1, a] -> erase_all_back _ <
+erase_all_back _ -> ac 0 ^
+add_plus_to_end [0, 1] >
+add_plus_to_end _ -> add_plus_to_end_return + <
+add_plus_to_end_return [0, 1] <
+add_plus_to_end_return * -> do_job * <
+do_job _ -> erase_first _ >
+do_job 0 -> put_zero a >
+put_zero a >
+do_job 1 -> prepare_copy_second_number b >
+do_job b -> start_copy_second_number a >
+prepare_copy_second_number a -> prepare_copy_second_number 0 >
+prepare_copy_second_number * -> do_job * <
+start_copy_second_number [0, 1, a, b, *] >
+start_copy_second_number [+, _] -> copy_second_number [+, _] <
+copy_second_number 0 -> copy_second_carry_0 a >
+copy_second_number 1 -> copy_second_carry_1 b >
+copy_second_carry_0 [0, 1, a, b, +] >
+copy_second_carry_0 _ -> copy_second_return 0 <
+copy_second_carry_1 [0, 1, a, b, +] >
+copy_second_carry_1 _ -> copy_second_return 1 <
+copy_second_return [0, 1, a, b, +] <
+copy_second_return * -> copy_second_take_next * >
+copy_second_take_next [a, b, +] -> copy_second_check_done [a, b, +] <
+copy_second_take_next [0, 1] >
+copy_second_check_done * -> copying_done * >
+copy_second_check_done [a, b] <
+copy_second_check_done [0, 1] -> copy_second_number [0, 1] ^
+do_job a <
+put_zero [+, *, 0, 1] >
+put_zero _ -> return_to_first 0 <
+return_to_first [+, 0, 1] <
+return_to_first * -> do_job * <
+erase_first [a, b, *, 0, 1] -> erase_first _ >
+erase_first + -> erase_last_plus _ >
+erase_last_plus [0, 1, +] >
+erase_last_plus _ -> erase_last_plus_here _ <
+erase_last_plus_here + -> to_beginning _ <
+to_beginning [0, 1, +] <
+to_beginning _ -> sum_start _ >
+start_reverse_find_plus [0, 1] <
+start_reverse_find_plus + -> start_reverse + >
+start_reverse _ -> end_reverse _ ^
+start_reverse [0, 1] -> reverse_to_end [0, 1] >
+reverse_to_end [0, 1] >
+reverse_to_end _ -> reverse_take _ <
+reverse_take 0 -> reverse_write_0 a >
+reverse_take 1 -> reverse_write_1 b >
+reverse_take _ -> reverse_cleanup _ >
+reverse_write_0 [0, 1, a, b] >
+reverse_write_1 [0, 1, a, b] >
+reverse_write_0 _ -> reverse_return 0 <
+reverse_write_1 _ -> reverse_return 1 <
+reverse_return [0, 1] <
+reverse_return [a, b] -> reverse_take [a, b] <
+reverse_take [a, b] <
+reverse_cleanup [a, b] -> reverse_cleanup _ >
+reverse_cleanup [0, 1] -> end_reverse [0, 1] ^
+copying_done [0, 1, a, b, +] >
+copying_done _ -> copying_done_back _ <
+copying_done_back [0, 1] <
+copying_done_back + -> start_reverse + >
+end_reverse [0, 1] -> start_move_reversed [0, 1] ^
+start_move_reversed [0, 1] -> reverse_check_ws [0, 1] >
+reverse_check_ws _ -> reverse_take_last_digit _ <
+reverse_check_ws [0, 1] -> reverse_take_digit [0, 1] <
+reverse_take_last_digit 0 -> move_reversed_last_0 _ <
+reverse_take_last_digit 1 -> move_reversed_last_1 _ <
+reverse_take_digit 0 -> move_reversed_0 _ <
+reverse_take_digit 1 -> move_reversed_1 _ <
+move_reversed_last_0 [+, 0, 1] -> put_reversed_last_0 [+, 0, 1] >
+move_reversed_last_1 [+, 0, 1] -> put_reversed_last_1 [+, 0, 1] >
+move_reversed_last_0 _ <
+move_reversed_last_1 _ <
+move_reversed_0 [+, 0, 1] -> put_reversed_0 [+, 0, 1] >
+put_reversed_0 _ -> next_digit_move_reversed 0 >
+move_reversed_0 _ <
+move_reversed_1 _ <
+move_reversed_1 [+, 0, 1] -> put_reversed_1 [+, 0, 1] >
+put_reversed_1 _ -> next_digit_move_reversed 1 >
+next_digit_move_reversed _ >
+next_digit_move_reversed [0, 1] -> start_move_reversed [0, 1] ^
+return_to_first [0, 1] <
+reverse_take + -> reverse_cleanup + >
+put_reversed_last_0 _ -> back_from_copying_second 0 >
+put_reversed_last_1 _ -> back_from_copying_second 1 >
+back_from_copying_second _ -> back_from_copying_second + <
+back_from_copying_second [+, 0, 1] <
+back_from_copying_second [a, b] -> back_from_copying_second [0, 1] <
+back_from_copying_second * -> do_job * <
+sum_start [0, 1, a, b] >
+sum_start_no_x [0, 1, a, b, +] >
+sum_start_no_x _ -> sum_add_next_digit _ <
+sum_start _ -> sum_all_done _ <
+sum_start + -> sum_start_after_plus + >
+sum_start_after_plus [0, 1] >
+sum_start_after_plus [_, +] -> sum_add_next_digit x <
+sum_add_next_digit 0 -> sum_carry_0 _ <
+sum_add_next_digit 1 -> sum_carry_1 _ <
+sum_add_next_digit + -> sum_finish _ <
+sum_carry_0 [0, 1] <
+sum_carry_1 [0, 1] <
+sum_carry_0 + -> sum_carry_0_after_plus + <
+sum_carry_1 + -> sum_carry_1_after_plus + <
+sum_carry_0_after_plus [a, b] <
+sum_carry_0_after_plus [_, 0, 1] -> sum_start_no_x [a, a, b] >
+sum_carry_1_after_plus [a, b] <
+sum_carry_1_after_plus [_, 0] -> sum_start_no_x [b, b] >
+sum_carry_1_after_plus 1 -> sum_incr a <
+sum_incr [_, 0] -> sum_start_no_x [1, 1] >
+sum_incr 1 -> sum_incr 0 <
+sum_finish [0, 1] <
+sum_finish [a, b] -> sum_finish [0, 1] <
+sum_finish _ -> sum_ac _ >
+sum_ac [0, 1] -> sum_check_completed [0, 1] >
+sum_check_completed [0, 1, _] >
+sum_check_completed x -> sum_check_ws x >
+sum_check_ws _ -> sum_all_done _ <
+sum_check_ws [0, 1] -> sum_repeat [0, 1] <
+sum_repeat x -> sum_repeat + <
+sum_repeat _ <
+sum_repeat [0, 1] -> sum_move_check_finished [0, 1] <
+sum_move_check_finished _ -> sum_move_take_last _ >
+sum_move_check_finished [0, 1] -> sum_move_take [0, 1] >
+sum_move_take 0 -> sum_move_carry_0 _ >
+sum_move_take 1 -> sum_move_carry_1 _ >
+sum_move_take_last 0 -> sum_move_carry_last_0 _ >
+sum_move_take_last 1 -> sum_move_carry_last_1 _ >
+sum_move_carry_0 _ >
+sum_move_carry_1 _ >
+sum_move_carry_last_0 _ >
+sum_move_carry_last_1 _ >
+sum_move_carry_0 [0, 1, +] -> sum_put_0 [0, 1, +] <
+sum_move_carry_1 [0, 1, +] -> sum_put_1 [0, 1, +] <
+sum_move_carry_last_0 [0, 1, +] -> sum_put_last_0 [0, 1, +] <
+sum_move_carry_last_1 [0, 1, +] -> sum_put_last_1 [0, 1, +] <
+sum_put_0 _ -> sum_repeat 0 <
+sum_put_1 _ -> sum_repeat 1 <
+sum_put_last_0 _ -> sum_start 0 ^
+sum_put_last_1 _ -> sum_start 1 ^
+sum_all_done _ <
+sum_all_done x -> sum_all_done _ <
+sum_all_done [0, 1] -> sum_all_done_on_number [0, 1] <
+sum_all_done_on_number [0, 1] <
+sum_all_done_on_number _ -> ac _ >

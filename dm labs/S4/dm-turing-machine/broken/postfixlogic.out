@@ -1,0 +1,15 @@
+1
+S 0 -> zero _ >
+S 1 -> one _ >
+one 1 -> and _ >
+one 0 -> xor _ >
+zero 1 -> xor _ >
+zero 0 -> none _ >
+and a -> S 1 ^
+and o -> S 1 ^
+xor a -> S 0 ^
+xor o -> S 1 ^
+none a -> S 0 ^
+none o -> S 0 ^
+one _ -> AC 1 ^
+zero _ -> AC 0 ^

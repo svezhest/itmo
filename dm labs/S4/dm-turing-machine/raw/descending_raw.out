@@ -1,0 +1,64 @@
+start: descending_s
+accept: descending_ac
+reject: descending_rj
+blank: _
+descending_s 0 -> descending_ac 0 ^
+descending_s 1 -> descending_put_asterisk 1 >
+descending_put_asterisk [0, 1] -> descending_put_asterisk [0, 1] >
+descending_put_asterisk _ -> descending_to_next_digit * <
+descending_to_next_digit [0, 1] -> descending_to_next_digit [0, 1] <
+descending_to_next_digit [_, *, a, b] -> descending_take_next_digit [_, *, a, b] >
+descending_take_next_digit * -> descending_repair * <
+descending_repair [a, b] -> descending_repair [0, 1] <
+descending_repair [_, *] -> descending_prepare_decrement [_, *] >
+descending_take_next_digit 0 -> descending_carry_0 a >
+descending_take_next_digit 1 -> descending_carry_1 b >
+descending_carry_0 [*, 0, 1] -> descending_carry_0 [*, 0, 1] >
+descending_carry_1 [*, 0, 1] -> descending_carry_1 [*, 0, 1] >
+descending_carry_0 _ -> descending_go_back 0 <
+descending_carry_1 _ -> descending_go_back 1 <
+descending_go_back [0, 1] -> descending_go_back [0, 1] <
+descending_go_back * -> descending_to_next_digit * <
+descending_prepare_decrement [*, 0, 1] -> descending_prepare_decrement [*, 0, 1] >
+descending_prepare_decrement _ -> descending_decrement _ <
+descending_decrement 0 -> descending_decrement 1 <
+descending_decrement 1 -> descending_prepare_check_zero 0 <
+descending_prepare_check_zero [0, 1] -> descending_prepare_check_zero [0, 1] <
+descending_prepare_check_zero * -> descending_check_zero * >
+descending_check_zero 0 -> descending_check_zero 0 >
+descending_check_zero 1 -> descending_prepare_check_zeros_at_beginning 1 <
+descending_check_zero _ -> descending_erase_zero_and_finish _ <
+descending_erase_zero_and_finish 0 -> descending_erase_zero_and_finish _ <
+descending_erase_zero_and_finish * -> descending_go_to_very_beginning _ <
+descending_go_to_very_beginning [*, 0, 1] -> descending_go_to_very_beginning [*, 0, 1] <
+descending_go_to_very_beginning _ -> descending_ac _ >
+descending_prepare_check_zeros_at_beginning [0, 1] -> descending_prepare_check_zeros_at_beginning [0, 1] <
+descending_prepare_check_zeros_at_beginning * -> descending_check_zeros_at_beginning * >
+descending_check_zeros_at_beginning 0 -> descending_clear_zeros_and_move _ >
+descending_check_zeros_at_beginning 1 -> descending_prepare_repeat 1 <
+descending_prepare_repeat [0, 1] -> descending_prepare_repeat [0, 1] <
+descending_prepare_repeat * -> descending_s * >
+descending_clear_zeros_and_move 0 -> descending_clear_zeros_and_move _ >
+descending_clear_zeros_and_move 1 -> descending_move_prepare_mark_end 1 >
+descending_move_prepare_mark_end [0, 1] -> descending_move_prepare_mark_end [0, 1] >
+descending_move_prepare_mark_end _ -> descending_move_mark_end _ <
+descending_move_mark_end [0, 1] -> descending_move_start [a, b] <
+descending_move_start [_, 0, 1] -> descending_move_start [_, 0, 1] <
+descending_move_start * -> descending_move_take_next * >
+descending_move_take_next _ -> descending_move_take_next _ >
+descending_move_take_next 0 -> descending_move_carry_0 _ <
+descending_move_take_next 1 -> descending_move_carry_1 _ <
+descending_move_take_next a -> descending_move_carry_a _ <
+descending_move_take_next b -> descending_move_carry_b _ <
+descending_move_carry_0 _ -> descending_move_carry_0 _ <
+descending_move_carry_0 [*, 0, 1] -> descending_move_put_0 [*, 0, 1] >
+descending_move_put_0 _ -> descending_move_take_next 0 >
+descending_move_carry_1 _ -> descending_move_carry_1 _ <
+descending_move_carry_1 [*, 0, 1] -> descending_move_put_1 [*, 0, 1] >
+descending_move_put_1 _ -> descending_move_take_next 1 >
+descending_move_carry_a _ -> descending_move_carry_a _ <
+descending_move_carry_a [*, 0, 1] -> descending_move_put_a [*, 0, 1] >
+descending_move_put_a _ -> descending_prepare_repeat 0 <
+descending_move_carry_b _ -> descending_move_carry_b _ <
+descending_move_carry_b [*, 0, 1] -> descending_move_put_b [*, 0, 1] >
+descending_move_put_b _ -> descending_prepare_repeat 1 <

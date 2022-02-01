@@ -1,0 +1,33 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s [(, 0, 1, a, o, x] >
+s [_, )] -> solve_for_and [_, )] <
+solve_for_and [0, 1, o, x] <
+solve_for_and a -> proceed_and x >
+proceed_and x >
+proceed_and 0 -> proceed_and_0 x <
+proceed_and 1 -> proceed_and_1 x <
+proceed_and_0 x <
+proceed_and_1 x <
+proceed_and_0 [0, 1] -> solve_for_and 0 <
+proceed_and_1 0 -> solve_for_and 0 <
+proceed_and_1 1 -> solve_for_and 1 <
+solve_for_and [_, (] -> solve_for_or [_, x] >
+solve_for_or [0, 1, x] >
+solve_for_or o -> proceed_or x <
+proceed_or x <
+proceed_or 0 -> proceed_or_0 x >
+proceed_or 1 -> proceed_or_1 x >
+proceed_or_0 x >
+proceed_or_1 x >
+proceed_or_0 0 -> solve_for_or 0 >
+proceed_or_0 1 -> solve_for_or 1 >
+proceed_or_1 [0, 1] -> solve_for_or 1 >
+solve_for_or _ -> clear _ <
+solve_for_or ) -> s x >
+clear [0, 1, x] -> clear [0, 1, _] <
+clear _ -> finish _ >
+finish _ >
+finish [0, 1] -> ac [0, 1] ^

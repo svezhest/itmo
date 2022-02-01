@@ -1,0 +1,33 @@
+start: start_reverse
+accept: end_reverse
+reject: rj
+blank: _
+start_reverse _ -> end_reverse _ ^
+start_reverse 0 -> reverse_to_end 0 >
+start_reverse 1 -> reverse_to_end 1 >
+reverse_to_end 0 -> reverse_to_end 0 >
+reverse_to_end 1 -> reverse_to_end 1 >
+reverse_to_end _ -> reverse_take _ <
+reverse_take 0 -> reverse_write_0 a >
+reverse_take 1 -> reverse_write_1 b >
+reverse_take _ -> reverse_cleanup _ >
+reverse_write_0 0 -> reverse_write_0 0 >
+reverse_write_0 1 -> reverse_write_0 1 >
+reverse_write_0 a -> reverse_write_0 a >
+reverse_write_0 b -> reverse_write_0 b >
+reverse_write_1 0 -> reverse_write_1 0 >
+reverse_write_1 1 -> reverse_write_1 1 >
+reverse_write_1 a -> reverse_write_1 a >
+reverse_write_1 b -> reverse_write_1 b >
+reverse_write_0 _ -> reverse_return 0 <
+reverse_write_1 _ -> reverse_return 1 <
+reverse_return 0 -> reverse_return 0 <
+reverse_return 1 -> reverse_return 1 <
+reverse_return a -> reverse_take a <
+reverse_return b -> reverse_take b <
+reverse_take a -> reverse_take a <
+reverse_take b -> reverse_take b <
+reverse_cleanup a -> reverse_cleanup _ >
+reverse_cleanup b -> reverse_cleanup _ >
+reverse_cleanup 0 -> end_reverse 0 ^
+reverse_cleanup 1 -> end_reverse 1 ^

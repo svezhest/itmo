@@ -1,0 +1,39 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s 0 -> s 0 >
+s 1 -> s 1 >
+s a -> s a >
+s b -> s b >
+s + -> s + >
+s _ -> add_next_digit _ <
+add_next_digit a -> add_next_digit a <
+add_next_digit b -> add_next_digit b <
+add_next_digit 0 -> carry_0 _ <
+add_next_digit 1 -> carry_1 _ <
+add_next_digit + -> finish _ <
+carry_0 0 -> carry_0 0 <
+carry_0 1 -> carry_0 1 <
+carry_1 0 -> carry_1 0 <
+carry_1 1 -> carry_1 1 <
+carry_0 + -> carry_0_after_plus + <
+carry_0_after_plus a -> carry_0_after_plus a <
+carry_0_after_plus b -> carry_0_after_plus b <
+carry_0_after_plus _ -> s a >
+carry_0_after_plus 0 -> s a >
+carry_0_after_plus 1 -> s b >
+carry_1 + -> carry_1_after_plus + <
+carry_1_after_plus a -> carry_1_after_plus a <
+carry_1_after_plus b -> carry_1_after_plus b <
+carry_1_after_plus _ -> s b >
+carry_1_after_plus 0 -> s b >
+carry_1_after_plus 1 -> incr a <
+incr _ -> s 1 >
+incr 0 -> s 1 >
+incr 1 -> incr 0 <
+finish 0 -> finish 0 <
+finish 1 -> finish 1 <
+finish a -> finish 0 <
+finish b -> finish 1 <
+finish _ -> ac _ >

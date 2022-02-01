@@ -1,0 +1,34 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+s _ -> ac _ ^
+s [0, 1] -> do_again [0, 1] >
+find_first [a, o, x] <
+find_first [0, 1] -> find_second [0, 1] <
+find_second 0 -> calculate_op_0 x >
+find_second 1 -> calculate_op_1 x >
+find_second [a, o] -> find_first [a, o] <
+find_second x <
+calculate_op_0 x >
+calculate_op_1 x >
+calculate_op_0 0 -> calculate_op_none x >
+calculate_op_0 1 -> calculate_op_xor x >
+calculate_op_1 0 -> calculate_op_xor x >
+calculate_op_1 1 -> calculate_op_and x >
+calculate_op_none x >
+calculate_op_xor x >
+calculate_op_and x >
+calculate_op_none [a, o] -> do_again 0 >
+calculate_op_xor a -> do_again 0 >
+calculate_op_xor o -> do_again 1 >
+calculate_op_and [a, o] -> do_again 1 >
+do_again [0, 1, a, o, x] >
+do_again _ -> find_op _ <
+find_op x -> find_op _ <
+find_op [a, o] -> find_first [a, o] <
+find_op [0, 1] -> clear [0, 1] <
+clear x -> clear _ <
+clear _ -> finish _ >
+finish _ >
+finish [0, 1] -> ac [0, 1] ^
