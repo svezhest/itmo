@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: max(100%, 1200px);
+    overflow-wrap: normal;
+    word-wrap: normal;
+    word-break: normal;
+    line-break: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+
+/* Переносы слов не работают в Chrome */
+
+
+/* Еще забавно что в Хроме страница зеленеет при скролле. Наверное тут меня уже глаза подводят :) */
+
+h1,
+h2,
+h3,
+h4 {
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+.three_columns {
+    column-count: 3;
+    column-gap: 40px;
+    column-rule-style: solid;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.container__item {
+    flex: 1;
+    padding-right: 4px;
+}
+
+.left-border,
+.container__item:not(:first-child) {
+    padding-left: 4px;
+    border: 2px solid;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.bottom-border {
+    padding-bottom: 4px;
+    border: 4px solid;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical {
+    font-size: 0.5em;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+
+.short-article__paragraph:first-of-type:first-letter {
+    font-size: 150%;
+}
+
+.big-article {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.big-article__header {
+    text-align: center;
+}
+
+.big-article__main {
+    display: flex;
+    flex-direction: row;
+}
+
+.big-article__left {
+    padding-right: 4px;
+    flex: 1;
+}
+
+.big-article__right {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.big-article__img img {
+    width: 100%;
+}
+
+.short-article__paragraph,
+.three_columns__paragraph,
+.box__paragraph {
+    text-align: justify;
+}
+
+.short-article__header,
+.three_columns__header,
+.box__header {
+    text-align: center;
+}
+
+.short-article__header,
+.three_columns__header {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+}
+
+.newspaper {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-top: 40px;
+    padding-bottom: 100px;
+}
+
+main,
+.box {
+    background-color: #faf9c6;
+    color: black;
+}
+
+main {
+    font-family: 'Old Standard TT', serif;
+}
+
+
+/* Цветовую палитру я нагло стырил ;) */
+
+.dark-theme:checked~main,
+.dark-theme:checked~* .box {
+    color: #bdbc7d;
+    background-color: #333224;
+}
+
+.dark-theme:checked~* .theme-label,
+.font-size:checked~* .size-label,
+.font-type:checked~* .style-label {
+    border-style: solid;
+}
+
+.font-size:checked~main {
+    font-size: x-large;
+}
+
+.font-type:checked~main {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header-line,
+.info-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.newspaper__title {
+    font-family: 'Estonia', cursive;
+    font-size: 500%;
+}
+
+.header-line__item,
+.info-line__item {
+    flex: 2;
+    text-align: center;
+}
+
+.box {
+    border: 1px solid;
+    padding: 10px;
+    margin: 4px;
+}
+
+.big-article__img {
+    padding: 5%;
+}
+
+.info-line {
+    border-top: 6px double;
+    border-bottom: 6px double;
+}
+
+.info-line span {
+    flex: 1;
+}
+
+.buttons {
+    position: fixed;
+    top: 5px;
+    display: flex;
+    left: 20px;
+}
+
+.button {
+    margin: 5px;
+    border-style: dashed;
+}

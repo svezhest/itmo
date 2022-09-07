@@ -1,0 +1,150 @@
+body {
+    color       : gray;
+    font-family : 'Comic Sans MS', arial;
+    padding-left: 30px;
+}
+
+/* --------- */
+/*  icon */
+
+input[type=checkbox].hidden {
+    opacity: 0;
+}
+
+.icon {
+    padding-left: 0px;
+}
+
+.icon img {
+    height    : 30px;
+    width     : 30px;
+    display   : block;
+    transition: all 1s ease-out;
+}
+
+.icon img:hover {
+    -webkit-transform: rotate(10deg);
+    -moz-transform   : rotate(10deg);
+    -o-transform     : rotate(10deg);
+    transform        : rotate(10deg);
+}
+
+input:checked~.icon img:hover {
+    -webkit-transform: rotate(80deg);
+    -moz-transform   : rotate(80deg);
+    -o-transform     : rotate(80deg);
+    transform        : rotate(80deg);
+}
+
+input:checked~.icon img {
+    -webkit-transform: rotate(90deg);
+    -moz-transform   : rotate(90deg);
+    -o-transform     : rotate(90deg);
+    transform        : rotate(90deg);
+}
+
+
+/* --------- */
+/*  article display */
+
+.cat-tile,
+.cat-tile * {
+    -moz-transition   : all 0.6s ease-out;
+    -o-transition     : all 0.6s ease-out;
+    -webkit-transition: all 0.6s ease-out;
+    transition        : all 0.6s ease-out;
+}
+
+.cat-tile {
+    background-color: rgb(239, 239, 245);
+    padding         : 1px;
+    margin          : 30px 20px;
+    display         : inline-block;
+    width           : 300px;
+    height          : 400px;
+    border          : 2px dashed lightgrey;
+}
+
+input:checked~.cat-tile {
+    display   : block;
+    margin    : 20px auto;
+    width     : 600px;
+    height: auto;
+}
+
+
+input:not(:checked)~article .cat-full-info {
+    display: none;
+}
+
+.cat-full-info {
+    padding: 10px;
+}
+
+input:checked~article .cat-brief-info {
+    display: none;
+    padding: 5px;
+}
+
+.cat-info {
+    font-size: 19px;
+}
+
+
+.cat-tile:hover {
+    background-color: rgb(253, 253, 255);
+    border          : 2px solid gray;
+}
+
+/* --------- */
+/*  name */
+
+.cat-name {
+    color        : gray;
+    font-family  : 'Comic Sans MS', arial;
+    margin       : 0 50px;
+    text-align   : center;
+    white-space  : nowrap;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    transition   : all 1s ease-out;
+}
+
+.cat-name:hover {
+    color : #303030;
+    margin: 0 10px;
+}
+
+/* --------- */
+/*  cat image */
+
+input:not(:checked)~article .cat-img {
+    margin-top: 20px;
+    display   : block;
+    width     : 100%;
+    height    : 200px;
+}
+
+input:checked~article .cat-img {
+    margin-top: 20px;
+    display   : block;
+    width     : 100%;
+    height    : 350px;
+}
+
+.cat-img img {
+    display     : block;
+    margin-left : auto;
+    margin-right: auto;
+    width       : auto;
+    height      : 90%;
+    object-fit  : fill;
+    align-self  : center;
+}
+
+.cat-img img:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform   : scale(1.2);
+    -o-transform     : scale(1.2);
+    transform        : scale(1.2);
+}
