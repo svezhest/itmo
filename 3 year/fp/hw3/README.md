@@ -1,4 +1,4 @@
-#Homework #3
+# Homework #3
 
 In this homework we will gradually develop a small programming language called Hi.
 Project Structure

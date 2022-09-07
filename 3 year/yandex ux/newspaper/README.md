@@ -1,13 +1,3 @@
-# Задача «Про котиков»
-## Доступные команды
+# CSS-7 "DeLorean DMC-12"
 
-> Перед тем, как запускать приведенные ниже команды, необходимо установить зависимости с помощью команды `npm install`
-
-Запускаются так: `npm run <command>`
-
-| Команда   | Действие               |
-| --------- | ---------------------- |
-| lint      | Проверка кода линтером |
-| lint:html | Линтинг HTML           |
-| lint:css  | Линтинг CSS            |
-| format    | Форматирование кода    |
+![alt](https://github.com/paskudnicc/Itmo/blob/main/3%20year/yandex%20ux/newspaper/screenshot.png)
