@@ -1,0 +1,22 @@
+{
+  "name": "software-design-lab-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "nock": "^13.2.9",
+    "@types/jest": "^29.2.2",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3"
+  }
+}
