@@ -1,0 +1,14 @@
+select
+    StudentName, AvgMark
+from
+    Students
+    left join
+        (
+        select
+            StudentId, avg(cast(Mark as real)) as AvgMark
+        from
+            Marks
+        group by StudentId
+    ) as A
+    on Students.StudentId = A.StudentId
+;

@@ -1,0 +1,7 @@
+select 
+    sum(cast(Mark as Double)) as SumMark
+from
+    Marks
+where
+    StudentId = :StudentId
+;

@@ -1,0 +1,9 @@
+select
+    StudentName, CourseName
+from
+    Students 
+		natural join 
+	(select distinct GroupId, CourseId from Plan) as Course
+        natural join
+    Courses
+;

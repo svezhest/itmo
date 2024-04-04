@@ -1,0 +1,26 @@
+select
+	Students.StudentName, Courses.CourseName
+from
+	Students,
+	Courses,
+	(
+	select distinct
+		Students.StudentId, Plan.CourseId
+	from
+		Students, Plan
+	where
+		Students.GroupId = Plan.GroupId
+		and not exists (
+			select
+				Students.StudentId, Marks.CourseId
+			from
+				Marks
+			where
+				Students.StudentId = Marks.StudentId
+				and Marks.CourseId = Plan.CourseId
+		)
+	) as A
+where
+	Students.StudentId = A.StudentId
+	and Courses.CourseId = A.CourseId
+;

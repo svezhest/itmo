@@ -1,0 +1,50 @@
+select GroupName, CourseName
+    from (
+        select
+            CourseId, GroupId
+            from (
+                select distinct
+                    CourseId
+                from
+                    Marks
+            ) A
+            cross join (
+                select distinct GroupId
+                    from Students
+            ) B
+        except
+        select CourseId, GroupId
+            from (
+                select
+                    CourseId, GroupId, StudentId
+                    from (
+                        select distinct
+                            CourseId
+                        from
+                            Marks
+                    ) C
+                    cross join (
+                        select
+                            StudentId, GroupId
+                        from
+                            Students
+                    ) D
+                except
+                select
+                    CourseId, GroupId, StudentId
+                from
+                    (
+                        select StudentId, GroupId
+                            from Students
+                    ) E
+                    natural join (
+                        select CourseId, StudentId
+                            from Marks
+                    ) F
+            ) G
+    ) H
+    natural join
+        Groups
+    natural join
+        Courses
+;

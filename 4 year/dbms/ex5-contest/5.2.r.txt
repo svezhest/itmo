@@ -1,0 +1,1 @@
+p{StudentName, CourseName}((Students nj Plan nj Courses ) ∖ ((Students nj Plan nj Courses) lsj Marks))

@@ -1,0 +1,1 @@
+p{StudentId, CourseId}(Marks) gdiv p{StudentId, GroupId}(Students)

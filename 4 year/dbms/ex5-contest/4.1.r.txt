@@ -1,0 +1,1 @@
+Students ∖ p{StudentId, StudentName, GroupId}(s{CourseName = :CourseName}(Students nj Marks nj Courses))

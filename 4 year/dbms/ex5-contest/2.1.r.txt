@@ -1,0 +1,1 @@
+p{StudentId, StudentName, GroupName}(s{StudentId = :StudentId}(Students) nj Groups)

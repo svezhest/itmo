@@ -1,0 +1,13 @@
+Helper2(StudentId, CourseId) :- 
+    Marks(StudentId, CourseId, Mark).
+
+Helper1(GroupId, CourseId) :- 
+    Groups(GroupId, _), 
+    Courses(CourseId, _), 
+    Students(StudentId, _, GroupId), 
+    not Helper2(StudentId, CourseId).
+
+Result(GroupName, CourseName) :- 
+    Groups(GroupId, GroupName), 
+    Courses(CourseId, CourseName), 
+    not Helper1(GroupId, CourseId).

@@ -1,0 +1,1 @@
+p{StudentId, CourseName}(Marks nj Courses) gdiv p{StudentId, GroupName}(Students nj Groups)

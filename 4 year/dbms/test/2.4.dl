@@ -1,0 +1,12 @@
+SolvedTask(SessionId, ContestId, Letter) :-
+    Sessions(SessionId, _, ContestId, _), 
+    Runs(_, SessionId, Letter, _, 1).
+
+TaskSolvedByNoSession(ContestId, Letter) :-
+    Problems(ContestId, Letter, _), 
+    Sessions(SessionId, _, ContestId, _), 
+    not SolvedTask(SessionId, ContestId, Letter).
+
+SolvedByAll(ContestId, Letter) :- 
+    Problems(ContestId, Letter, _), 
+    not TaskSolvedByNoSession(ContestId, Letter).

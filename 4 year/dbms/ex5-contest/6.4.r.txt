@@ -1,0 +1,1 @@
+p{StudentId}(s{GroupIdOfStudent = GroupId}(r{GroupIdOfStudent = GroupId}(Students nj Plan lsj Marks) gdiv (Plan lsj s{LecturerName = :LecturerName}(Lecturers))))

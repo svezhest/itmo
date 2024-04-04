@@ -1,0 +1,6 @@
+Result(StudentId, CourseId) :- 
+	Students(StudentId, StudentName, GroupId), 
+	Plan(GroupId, CourseId, LecturerId).
+
+Result(StudentId, CourseId) :- 
+	Marks(StudentId, CourseId, Mark).

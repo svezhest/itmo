@@ -1,0 +1,51 @@
+select StudentId 
+    from (
+        select StudentId, StudentId2 
+            from (
+                select distinct StudentId, CourseId
+                    from Marks
+            ) A
+            cross join (
+                select distinct StudentId as StudentId2 
+                    from Lecturers
+                        natural join
+                            Plan
+                        natural join
+                            Students
+                where
+                    LecturerName = :LecturerName
+            ) B
+        except
+        select StudentId, StudentId2
+            from (
+                select StudentId, D.CourseId, StudentId2 
+                    from (
+                        select distinct StudentId, CourseId
+                            from Marks
+                    ) C
+                    cross join (
+                        select distinct CourseId, StudentId as StudentId2 
+                            from Lecturers
+                                natural join
+                                    Plan
+                                natural join
+                                    Students
+                        where
+                            LecturerName = :LecturerName
+                    ) D
+                except
+                select StudentId, CourseId, StudentId2
+                    from Marks
+                    natural join (
+                        select CourseId, StudentId as StudentId2 
+                            from Lecturers
+                            natural join Plan
+                            natural join Students
+                        where
+                            LecturerName = :LecturerName
+                    ) E
+            ) F
+    ) J
+where
+    StudentId2 = StudentId
+;

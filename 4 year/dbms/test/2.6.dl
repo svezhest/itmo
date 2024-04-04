@@ -1,0 +1,8 @@
+SolvedProblems(ContestId, Letter) :- 
+    Problems(ContestId, Letter, _), 
+    Sessions(SessionId, _, ContestId, _), 
+    Runs(_, SessionId, Letter, _, 1).
+
+NotSolvedProblems(ProblemName) :- 
+    Problems(ContestId, Letter, ProblemName), 
+    not SolvedProblems(ContestId, Letter).

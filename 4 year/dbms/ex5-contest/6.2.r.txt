@@ -1,0 +1,1 @@
+p{StudentId}(Students ∖ Students lsj s{LecturerName = :LecturerName}(Plan nj Lecturers nj Marks))

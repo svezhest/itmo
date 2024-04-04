@@ -1,0 +1,1 @@
+p{TeamName}(Teams nj p{TeamId}(p{TeamId}(Teams) cj p{ContestId}(Contests) except p{TeamId, ContestId}(Runs nj Sessions)))

@@ -1,0 +1,14 @@
+select
+    StudentName, SumMark
+from
+    Students
+    left join
+        (
+        select
+            StudentId, sum(cast(Mark as real)) as SumMark
+        from
+            Marks
+        group by StudentId
+    ) as A
+    on Students.StudentId = A.StudentId
+;

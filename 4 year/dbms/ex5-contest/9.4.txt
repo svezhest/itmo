@@ -1,0 +1,25 @@
+select
+    GroupName, AvgAvgMark
+from
+    Groups
+    left join
+    (
+        select
+            avg(cast(A.AvgMarkStudent as Double)) as AvgAvgMark, GroupId
+        from
+            Students
+            left join (
+                select
+                    StudentId,
+                    avg(cast(Mark as Double)) as AvgMarkStudent
+                from
+                    Marks
+                group by
+                    StudentId
+            ) A
+            on A.StudentId = Students.StudentId
+        group by
+            GroupId
+    ) B
+    on B.GroupId = Groups.GroupId
+;

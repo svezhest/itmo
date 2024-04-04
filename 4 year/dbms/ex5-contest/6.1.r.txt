@@ -1,0 +1,1 @@
+p{StudentId}(s{LecturerName = :LecturerName}(Students nj Plan nj Lecturers nj Marks))

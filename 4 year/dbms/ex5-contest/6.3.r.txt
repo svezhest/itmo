@@ -1,0 +1,1 @@
+p{StudentId, CourseId}(Marks) div p{CourseId}(Plan lsj s{LecturerName = :LecturerName}(Lecturers))

@@ -1,0 +1,18 @@
+select
+    GroupId, CourseId
+from
+    Groups, Courses
+where
+    not exists (
+        select
+            CourseId
+        from
+            Courses C, Students
+        where
+            C.CourseId = Courses.CourseId
+            and Students.GroupId = Groups.GroupId
+            and Students.StudentId not in (
+                select StudentId from Marks where Marks.CourseId = Courses.CourseId
+            )
+    )
+;

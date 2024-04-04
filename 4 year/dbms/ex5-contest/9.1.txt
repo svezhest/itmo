@@ -1,0 +1,7 @@
+select 
+    avg(cast(Mark as Double)) as AvgMark
+from
+    Marks
+where
+    StudentId = :StudentId
+;

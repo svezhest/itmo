@@ -1,0 +1,12 @@
+Helper2(StudentId, CourseId) :- 
+    Marks(StudentId, CourseId, Mark).
+
+Helper1(StudentId) :- 
+    Students(StudentId, _, GroupId), 
+    Plan(GroupId, CourseId, LecturerId), 
+    Lecturers(LecturerId, :LecturerName), 
+    not Helper2(StudentId, CourseId).
+
+Result(StudentId) :- 
+    Students(StudentId, _, _), 
+    not Helper1(StudentId).
